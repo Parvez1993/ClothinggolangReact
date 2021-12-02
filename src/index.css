@@ -1,0 +1,32 @@
+body {
+  box-sizing: border-box;
+}
+
+.nav_bg {
+  background: #07183b !important;
+}
+
+a {
+  text-decoration: none !important;
+  color: rgb(29, 1, 1) !important;
+}
+
+.nav-heading {
+  color: white !important;
+}
+
+.navbar-light .navbar-toggler {
+  border-color: white !important;
+}
+
+.custom-toggler.navbar-toggler {
+  border-color: lightgreen;
+}
+
+.blue_btn {
+  background-color: #07183b !important;
+}
+
+.navbar-light .navbar-toggler-icon {
+  border-color: rgb(255, 255, 255) !important;
+}
