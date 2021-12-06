@@ -4,7 +4,7 @@ import Sort from "../components/Sort";
 import ProductList from "../components/ProductList";
 import Filter from "../components/Filter";
 import Hero from "../components/Hero";
-function Products() {
+function AdminProducts() {
   return (
     <Container>
       <Hero products="products" />
@@ -25,4 +25,4 @@ function Products() {
   );
 }
 
-export default Products;
+export default AdminProducts;

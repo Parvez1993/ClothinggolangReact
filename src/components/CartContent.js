@@ -13,6 +13,8 @@ function CartContent() {
     toggleAmount(id, "dec");
   };
 
+  console.log("cart", cart);
+
   return (
     <>
       <Wrapper>

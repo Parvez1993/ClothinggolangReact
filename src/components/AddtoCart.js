@@ -30,6 +30,8 @@ function AddtoCart({ product }) {
     });
   };
 
+  console.log("sizes", size);
+
   return (
     <>
       <Wrapper>

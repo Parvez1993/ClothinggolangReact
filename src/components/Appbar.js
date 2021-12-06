@@ -10,8 +10,10 @@ import {
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
+import { useUserContext } from "../admin/contextapi";
 
 function Appbar() {
+  const { user } = useUserContext();
   return (
     <>
       <Navbar className="nav_bg" expand={false} variant="dark">
@@ -36,21 +38,15 @@ function Appbar() {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link href="#action1">Home</Nav.Link>
-                <Nav.Link href="#action2">Product</Nav.Link>
-                <Nav.Link href="#action2">Blog</Nav.Link>
-                <Nav.Link href="#action2">About</Nav.Link>
-                <Nav.Link href="#action2">Contact</Nav.Link>
+                <Nav.Link href="/">Home</Nav.Link>
+                <Nav.Link href="/products">Product</Nav.Link>
+                <Nav.Link href="/cart">Cart</Nav.Link>
+                {user ? (
+                  <Nav.Link href="/admin">Admin Panel</Nav.Link>
+                ) : (
+                  <Nav.Link href="/login">Login</Nav.Link>
+                )}
               </Nav>
-              <Form className="d-flex">
-                <FormControl
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                />
-                <Button variant="outline-success">Search</Button>
-              </Form>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>
