@@ -8,7 +8,7 @@ function Adminlogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { user, setUser } = useUserContext();
+  const { user, setUser, setAccess } = useUserContext();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
@@ -22,6 +22,7 @@ function Adminlogin() {
       .then((response) => response.json())
       .then((data) => {
         setUser(Object.values(data)[0]);
+        // setAccess(Object.values(data)[0].access_level);
         window.localStorage.setItem(
           "user",
           JSON.stringify(Object.values(data)[0])

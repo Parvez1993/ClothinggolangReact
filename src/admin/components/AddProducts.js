@@ -52,6 +52,8 @@ function AddProducts() {
   ];
 
   const { user, setUser } = useUserContext();
+  let userJWT = user.jwt;
+
   const handleSubmit = async (e) => {
     if (
       title === "" &&
@@ -77,7 +79,7 @@ function AddProducts() {
     //empty all string///////////
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", "Bearer " + user);
+    myHeaders.append("Authorization", "Bearer " + userJWT);
 
     const requestOptions = {
       method: "POST",

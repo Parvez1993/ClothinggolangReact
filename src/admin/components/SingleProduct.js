@@ -54,6 +54,7 @@ function SingleProduct() {
   const navigate = useNavigate();
   const { id } = useParams();
   console.log(id);
+
   useEffect(() => {
     axios.get(`http://localhost:4000/v1/product/${id}`).then((res) => {
       if (res.status !== "200") {
@@ -90,7 +91,7 @@ function SingleProduct() {
 
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", "Bearer " + user);
+    myHeaders.append("Authorization", "Bearer " + user.jwt);
     const requestOptions = {
       method: "POST",
       body: JSON.stringify(payload),
@@ -130,15 +131,20 @@ function SingleProduct() {
   const handleDelete = (e) => {
     e.preventDefault();
     handleClose();
-    axios
-      .get(`http://localhost:4000/v1/admin/deleteproduct/${id}`)
-      .then((data) => {
-        if (data.error) {
-          <Alert>{data.error}</Alert>;
-        } else {
-          navigate("/products");
-        }
-      });
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", "Bearer " + user.jwt);
+
+    fetch(`http://localhost:4000/v1/admin/deleteproduct/${id}`, {
+      method: "GET",
+      headers: myHeaders,
+    }).then((data) => {
+      if (data.error) {
+        <Alert>{data.error}</Alert>;
+      } else {
+        navigate("/products");
+      }
+    });
   };
 
   const onChangeCheckbox = (e) => {

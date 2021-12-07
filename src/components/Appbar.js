@@ -11,9 +11,21 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import { useUserContext } from "../admin/contextapi";
+import { useNavigate } from "react-router-dom";
 
 function Appbar() {
-  const { user } = useUserContext();
+  const { user, setUser } = useUserContext();
+
+  const navigate = useNavigate();
+  const logout = async () => {
+    try {
+      await setUser("");
+      window.localStorage.removeItem("user");
+      navigate("/login");
+    } catch (error) {
+      console.log("error");
+    }
+  };
   return (
     <>
       <Navbar className="nav_bg" expand={false} variant="dark">
@@ -41,8 +53,14 @@ function Appbar() {
                 <Nav.Link href="/">Home</Nav.Link>
                 <Nav.Link href="/products">Product</Nav.Link>
                 <Nav.Link href="/cart">Cart</Nav.Link>
-                {user ? (
+                {user.access_level === "admin" ? (
                   <Nav.Link href="/admin">Admin Panel</Nav.Link>
+                ) : (
+                  ""
+                )}
+
+                {user.access_level === "user" ? (
+                  <button onClick={logout}>Logout</button>
                 ) : (
                   <Nav.Link href="/login">Login</Nav.Link>
                 )}

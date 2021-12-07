@@ -11,9 +11,10 @@ export const UserProvider = ({ children }) => {
     }
   };
   const [user, setUser] = React.useState(getLocalStorage());
+  const [access, setAccess] = React.useState("");
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, access, setAccess }}>
       {children}
     </UserContext.Provider>
   );

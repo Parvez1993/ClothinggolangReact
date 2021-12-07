@@ -4,7 +4,11 @@ import { useUserContext } from "./contextapi";
 
 function AdminPrivateRoute({ children, ...rest }) {
   const { user } = useUserContext();
-  return user ? <Outlet /> : <Navigate to="/login" />;
+  return user.access_level === "admin" ? (
+    () => children
+  ) : (
+    <Navigate to="/login" />
+  );
 }
 
 export default AdminPrivateRoute;

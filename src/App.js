@@ -15,9 +15,12 @@ import AdminProducts from "./admin//components/Products";
 import SingleProduct from "./admin//components/SingleProduct";
 import AddProducts from "./admin//components/AddProducts";
 import UserSignup from "./admin/components/UserSignup";
+import { useUserContext } from "./admin/contextapi";
 function App() {
-  return (
-    <>
+  const { user } = useUserContext();
+
+  if (user.access_level === "admin") {
+    return (
       <BrowserRouter>
         <Appbar />
         <Routes>
@@ -29,7 +32,11 @@ function App() {
           {/* =======================admin================================ */}
 
           <Route path="/login" element={<Adminlogin />} />
-          <Route path="/admin" element={<AdminPanel />} />
+          <Route
+            path="/admin"
+            role={user.access_level === "admin"}
+            element={<AdminPanel />}
+          />
           <Route path="/admin/products" element={<AdminProducts />} />
           <Route path="/signup" element={<UserSignup />} />
           <Route path="/admin/product/:id" element={<SingleProduct />} />
@@ -38,8 +45,30 @@ function App() {
         </Routes>
         <Footer />
       </BrowserRouter>
-    </>
-  );
+    );
+  } else
+    return (
+      <BrowserRouter>
+        <Appbar />
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/:id" element={<SinglePage />} />
+          <Route path="/cart" element={<CartPage />} />
+
+          {/* =======================admin================================ */}
+
+          <Route path="/login" element={<Adminlogin />} />
+          <Route path="/admin" element={<Home />} />
+          <Route path="/admin/products" element={<Home />} />
+          <Route path="/signup" element={<Home />} />
+          <Route path="/admin/product/:id" element={<Home />} />
+          <Route path="/admin/addProducts/:id" element={<Home />} />
+          <Route path="/admin/category" element={<Home />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    );
 }
 
 export default App;
