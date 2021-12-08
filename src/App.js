@@ -16,6 +16,7 @@ import SingleProduct from "./admin//components/SingleProduct";
 import AddProducts from "./admin//components/AddProducts";
 import UserSignup from "./admin/components/UserSignup";
 import { useUserContext } from "./admin/contextapi";
+import Checkout from "./pages/Checkout";
 function App() {
   const { user } = useUserContext();
 
@@ -55,6 +56,7 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<SinglePage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<Checkout />} />
 
           {/* =======================admin================================ */}
 

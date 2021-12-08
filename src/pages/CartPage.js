@@ -5,8 +5,12 @@ import CartTotal from "../components/CartTotal";
 import Hero from "../components/Hero";
 import { useCartContext } from "../context/cart_context";
 import styled from "styled-components";
+import { useUserContext } from "../admin/contextapi";
+import { Link } from "react-router-dom";
+import Checkout from "./Checkout";
 function CartPage() {
   const { cart, clearCart } = useCartContext();
+  const { user } = useUserContext();
 
   if (cart.length < 1) {
     return (
@@ -38,6 +42,13 @@ function CartPage() {
                 >
                   CLEAR ALL
                 </Button>
+                {user.jwt ? (
+                  <Link to="/checkout">
+                    <Button variant="success">Check out</Button>
+                  </Link>
+                ) : (
+                  <Link to="/login">Please login to proceed</Link>
+                )}
               </div>
             </Col>
             <Col>
