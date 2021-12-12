@@ -6,6 +6,7 @@ import CartContent from "../components/CartContent";
 import CartTotal from "../components/CartTotal";
 import { useCartContext } from "../context/cart_context";
 import { useUserContext } from "../admin/contextapi";
+import axios from "axios";
 
 const City = [
   { key: "1", value: "Dhaka", text: "Dhaka" },
@@ -29,6 +30,7 @@ function Checkout() {
         size: i.size,
         name: i.name,
         price: i.price,
+        quanity: i.amount,
       };
       return CartNew.push(data);
     });
@@ -36,18 +38,13 @@ function Checkout() {
     newObject.product = CartNew;
   }
 
-  let cartNewJson = JSON.stringify(CartNew);
-
-  console.log("my object", JSON.stringify(newObject));
-  console.log("cartNewJson", cartNewJson);
-
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
   const [postal, setPostal] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (
       name === "" &&
@@ -60,11 +57,22 @@ function Checkout() {
     }
     const data = new FormData(e.target);
     data.append("City", city);
-    data.append("Cart", JSON.stringify(CartNew));
     data.append("UserId", user.id);
     data.append("total", total_amount + shipping_fee);
+
     const payload = Object.fromEntries(data.entries());
     console.log(JSON.stringify(payload));
+    const requestOptions = {
+      method: "POST",
+      body: JSON.stringify(payload),
+    };
+
+    const requestOption2 = {
+      method: "POST",
+      body: JSON.stringify(newObject),
+    };
+
+    await axios.post("http://localhost:4000/v1/cart", newObject);
   };
   if (cart === "") {
     return (

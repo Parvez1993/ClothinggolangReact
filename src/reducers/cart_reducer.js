@@ -9,10 +9,10 @@ import {
 const cart_reducer = (state, action) => {
   if (action.type === ADD_TO_CART) {
     const { id, size, amount, product } = action.payload;
-    const tempItem = state.cart.find((i) => i.id === id + size);
+    const tempItem = state.cart.find((i) => id + "," + size);
     if (tempItem) {
       const tempCart = state.cart.map((cartItem) => {
-        if (cartItem.id === id + size) {
+        if (cartItem.id === id + "," + size) {
           let newAmount = cartItem.amount + amount;
           if (newAmount > cartItem.max) {
             newAmount = cartItem.max;
@@ -26,7 +26,7 @@ const cart_reducer = (state, action) => {
       return { ...state, cart: tempCart };
     } else {
       const newItem = {
-        id: id + size,
+        id: id + "," + size,
         name: product.title,
         size,
         amount,

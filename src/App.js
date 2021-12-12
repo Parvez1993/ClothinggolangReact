@@ -57,6 +57,7 @@ function App() {
           <Route path="/products/:id" element={<SinglePage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/signup" element={<UserSignup />} />
 
           {/* =======================admin================================ */}
 
